@@ -103,24 +103,34 @@ Efficiency is ratio of did/should which is calculated using hodo_efficiency.C
   Int_t adc_ihit, tdc_ihit;
 
   TTree *T=(TTree*)gDirectory->Get("T");
-  //
+  TString i2dbarname;
+  TString h2dttitle;
+  TString h2dtname;
+  TString h2dnegtitle;
+  TString h2dnegtitle;
+  TString h2dnegname;
+  TString h2dpostitle;
+  TString h2dposname;
+
+
+    
   for(UInt_t ip = 0; ip < NPLANES; ip++) {
 	    for(UInt_t ibar = 0; ibar < nbars[ip]; ibar++) {
-	      TString i2dbarname = Form("%d",ibar+1);
-	      TString h2dttitle= "TDC 1ns/chan "+plane_names[ip]+i2dbarname+"; Neg ; Pos ";
-	      TString h2dtname="uh2dtdc"+plane_names[ip]+i2dbarname;
-              htdc_tdc[ip*MAXBARS+ibar]= new TH2F(h2dtname,h2dttitle,200,25,75,200,25,75.);
-		TString h2dnegtitle= "Neg PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles; Counts neg ";
-	        TString h2dnegname="uhdidneg"+plane_names[ip]+i2dbarname;
+	         i2dbarname = Form("%d",ibar+1);
+	         h2dttitle= "TDC 1ns/chan "+plane_names[ip]+i2dbarname+"; Neg ; Pos ";
+	         h2dtname="uh2dtdc"+plane_names[ip]+i2dbarname;
+                 htdc_tdc[ip*MAXBARS+ibar]= new TH2F(h2dtname,h2dttitle,200,25,75,200,25,75.);
+		 h2dnegtitle= "Neg PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles; Counts neg ";
+	         h2dnegname="uhdidneg"+plane_names[ip]+i2dbarname;
                  hgood_neg_did[ip][ibar]= new TH1F(h2dnegname,h2dnegtitle,nbars_check[ip],1,nbars_check[ip]+1);
-		TString h2dnegtitle= "Neg PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles; Counts neg ";
-	        TString h2dnegname="uhshouldneg"+plane_names[ip]+i2dbarname;
+		 h2dnegtitle= "Neg PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles; Counts neg ";
+	         h2dnegname="uhshouldneg"+plane_names[ip]+i2dbarname;
                  hgood_neg_should[ip][ibar]= new TH1F(h2dnegname,h2dnegtitle,nbars_check[ip],1,nbars_check[ip]+1);
-		TString h2dpostitle= "Pos PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles;Counts pos ";
-	        TString h2dposname="uhdidpos"+plane_names[ip]+i2dbarname;
+		 h2dpostitle= "Pos PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles;Counts pos ";
+	         h2dposname="uhdidpos"+plane_names[ip]+i2dbarname;
                  hgood_pos_did[ip][ibar]= new TH1F(h2dposname,h2dpostitle,nbars_check[ip],1,nbars_check[ip]+1);
-		TString h2dpostitle="Pos PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles;Counts pos ";
-	        TString h2dposname="uhshouldpos"+plane_names[ip]+i2dbarname;
+		 h2dpostitle="Pos PMT Pad  "+plane_names[ip]+i2dbarname+"; plane "+plane_check_names[ip]+" paddles;Counts pos ";
+	         h2dposname="uhshouldpos"+plane_names[ip]+i2dbarname;
                  hgood_pos_should[ip][ibar]= new TH1F(h2dposname,h2dpostitle,nbars_check[ip],1,nbars_check[ip]+1);
  	    }
   }
@@ -128,24 +138,24 @@ Efficiency is ratio of did/should which is calculated using hodo_efficiency.C
   //
   for(UInt_t ip = 0; ip < NPLANES; ip++) {
 	    for(UInt_t ibar = 0; ibar < nbars[ip]; ibar++) {
-	      TString i2dbarname = Form("%d",ibar+1);
-	      TString h2dttitle= "ADC Int Amp "+plane_names[ip]+i2dbarname+"; Neg (pC); Pos (pC)";
-	      TString h2dtname="uh2dadcint"+plane_names[ip]+i2dbarname;
+	       i2dbarname = Form("%d",ibar+1);
+	       h2dttitle= "ADC Int Amp "+plane_names[ip]+i2dbarname+"; Neg (pC); Pos (pC)";
+	       h2dtname="uh2dadcint"+plane_names[ip]+i2dbarname;
 	      hadc_adc[ip*MAXBARS+ibar]= new TH2F(h2dtname,h2dttitle,50,0,100,50,0,100.);
-	      TString h2dttitle= "Good TDC ADC Int Amp "+plane_names[ip]+i2dbarname+"; Neg (pC); Pos (pC)";
-	      TString h2dtname="uh2dadcintgtdc"+plane_names[ip]+i2dbarname;
+	       h2dttitle= "Good TDC ADC Int Amp "+plane_names[ip]+i2dbarname+"; Neg (pC); Pos (pC)";
+	       h2dtname="uh2dadcintgtdc"+plane_names[ip]+i2dbarname;
 	      hadc_adc_good[ip*MAXBARS+ibar]= new TH2F(h2dtname,h2dttitle,50,0,100,50,0,100.);
-	      TString h2dttitle= "Neg PMT Pad "+plane_names[ip]+i2dbarname+"; Adc (pC);  Time (ns)";
-	      TString h2dtname="uh2dadcvtdcneg"+plane_names[ip]+i2dbarname;
+	       h2dttitle= "Neg PMT Pad "+plane_names[ip]+i2dbarname+"; Adc (pC);  Time (ns)";
+	       h2dtname="uh2dadcvtdcneg"+plane_names[ip]+i2dbarname;
 	      hadc_tdc[ip*MAXBARS+ibar][0]= new TH2F(h2dtname,h2dttitle,50,0,100,50,adc_tdc_ymin[ip],adc_tdc_ymax[ip]);
-	      TString h2dttitle= "Pos PMT Pad "+plane_names[ip]+i2dbarname+"; Adc (pC);  Time (ns)";
-	      TString h2dtname="uh2dadcvtdcpos"+plane_names[ip]+i2dbarname;
+	      h2dttitle= "Pos PMT Pad "+plane_names[ip]+i2dbarname+"; Adc (pC);  Time (ns)";
+	       h2dtname="uh2dadcvtdcpos"+plane_names[ip]+i2dbarname;
 	      hadc_tdc[ip*MAXBARS+ibar][1]= new TH2F(h2dtname,h2dttitle,50,0,100,50,adc_tdc_ymin[ip],adc_tdc_ymax[ip]);
-	      TString h2dttitle= "Neg PMT Pad "+plane_names[ip]+i2dbarname+"; Pos (cm); Adc (pC)";
-	      TString h2dtname="uh2dadcvdisneg"+plane_names[ip]+i2dbarname;
+	       h2dttitle= "Neg PMT Pad "+plane_names[ip]+i2dbarname+"; Pos (cm); Adc (pC)";
+	       h2dtname="uh2dadcvdisneg"+plane_names[ip]+i2dbarname;
 	      hadc_dis[ip*MAXBARS+ibar][0]= new TH2F(h2dtname,h2dttitle,dis_bin[ip],dis_sign[ip]*dis_center_pad1[ip]-dis_space/2.,-dis_sign[ip]*dis_center_pad1[ip]+dis_space/2.,50,0,100);
-	      TString h2dttitle= "Pos PMT Pad "+plane_names[ip]+i2dbarname+"; Pos (cm); Adc (pC)";
-	      TString h2dtname="uh2dadcvdispos"+plane_names[ip]+i2dbarname;
+	      h2dttitle= "Pos PMT Pad "+plane_names[ip]+i2dbarname+"; Pos (cm); Adc (pC)";
+	       h2dtname="uh2dadcvdispos"+plane_names[ip]+i2dbarname;
 	      hadc_dis[ip*MAXBARS+ibar][1]= new TH2F(h2dtname,h2dttitle,dis_bin[ip],dis_sign[ip]*dis_center_pad1[ip]-dis_space/2.,-dis_sign[ip]*dis_center_pad1[ip]+dis_space/2.,50,0,100);
 	    }
   }

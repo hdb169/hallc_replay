@@ -55,9 +55,9 @@ void UserScript()
   const Double_t TDC_MAX   = -800.0;
   const Int_t    TDC_NBINS = 40;
 
-  const Double_t RAWTDC_MIN   = 3250.0;
-  const Double_t RAWTDC_MAX   = 4250.0;
-  const Int_t    RAWTDC_NBINS = 100;
+  const Double_t RAWTDC_MIN   = 0.0;
+  const Double_t RAWTDC_MAX   = 8500.0;
+  const Int_t    RAWTDC_NBINS = 200;
 
   Int_t nadchits[NPLANES][NSIDES][NSIGNALS];
   Int_t ntdchits[NPLANES][NSIDES][NSIGNALS];
@@ -159,45 +159,52 @@ void UserScript()
 	      TString adcname="uhadc"+plane_names[ip]+iadcbarname+sides[iside]+
 		adc_signals[iadcsignal];
 
+	      UInt_t   nadcbins;
+	      Double_t hadcmin;
+	      Double_t hadcmax;
+
 	      if (adc_signals[iadcsignal] == "Ped") {
-		UInt_t   nadcbins = ADCPED_NBINS;
-		Double_t hadcmin  = ADCPED_MIN;
-		Double_t hadcmax  = ADCPED_MAX;
+	         nadcbins = ADCPED_NBINS;
+		 hadcmin  = ADCPED_MIN;
+		 hadcmax  = ADCPED_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PedRaw") {
-		UInt_t   nadcbins = ADCPEDRAW_NBINS;
-		Double_t hadcmin  = ADCPEDRAW_MIN;
-		Double_t hadcmax  = ADCPEDRAW_MAX;
+		nadcbins = ADCPEDRAW_NBINS;
+	        hadcmin  = ADCPEDRAW_MIN;
+	        hadcmax  = ADCPEDRAW_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PulseInt") {
-		UInt_t   nadcbins = ADCINT_NBINS;
-		Double_t hadcmin  = ADCINT_MIN;
-		Double_t hadcmax  = ADCINT_MAX;
+		 nadcbins = ADCINT_NBINS;
+	         hadcmin  = ADCINT_MIN;
+		 hadcmax  = ADCINT_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PulseIntRaw") {
-		UInt_t   nadcbins = ADCINTRAW_NBINS;
-		Double_t hadcmin  = ADCINTRAW_MIN;
-		Double_t hadcmax  = ADCINTRAW_MAX;
+	            nadcbins = ADCINTRAW_NBINS;
+	            hadcmin  = ADCINTRAW_MIN;
+		    hadcmax  = ADCINTRAW_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PulseAmp") {
-		UInt_t   nadcbins = ADCAMP_NBINS;
-		Double_t hadcmin  = ADCAMP_MIN;
-		Double_t hadcmax  = ADCAMP_MAX;
+		   nadcbins = ADCAMP_NBINS;
+		   hadcmin  = ADCAMP_MIN;
+		   hadcmax  = ADCAMP_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PulseAmpRaw") {
-		UInt_t   nadcbins = ADCAMPRAW_NBINS;
-		Double_t hadcmin  = ADCAMPRAW_MIN;
-		Double_t hadcmax  = ADCAMPRAW_MAX;
+	          nadcbins = ADCAMPRAW_NBINS;
+		 hadcmin  = ADCAMPRAW_MIN;
+		 hadcmax  = ADCAMPRAW_MAX;
 	      }
 	      if (adc_signals[iadcsignal] == "PulseTimeRaw") {
-		UInt_t   nadcbins = ADCPTRAW_NBINS;
-		Double_t hadcmin  = ADCPTRAW_MIN;
-		Double_t hadcmax  = ADCPTRAW_MAX;
+		  nadcbins = ADCPTRAW_NBINS;
+		 hadcmin  = ADCPTRAW_MIN;
+		 hadcmax  = ADCPTRAW_MAX;
 	      }
 	      hadc[hadcindex]=new TH1F(adcname, adctitle, nadcbins, hadcmin, hadcmax);
 	    }
 	  }
 	}
+
+
+	
 
 	if(signals[isignal] == "Tdc") {
 	  for (UInt_t itdcsignal = 0; itdcsignal < NTDCSIGNALS; itdcsignal++) {
@@ -209,16 +216,19 @@ void UserScript()
 		+" "+tdc_signals[itdcsignal];
 	      TString tdcname="uhtdc"+plane_names[ip]+itdcbarname+sides[iside]+
 		tdc_signals[itdcsignal];
-
+	      UInt_t   ntdcbins;
+	      Double_t htdcmin;
+	      Double_t htdcmax;
+  
 	      if (tdc_signals[itdcsignal] == "TimeRaw") {
-		UInt_t   ntdcbins = RAWTDC_NBINS;
-		Double_t htdcmin  = RAWTDC_MIN;
-		Double_t htdcmax  = RAWTDC_MAX;
+		  ntdcbins = RAWTDC_NBINS;
+		  htdcmin  = RAWTDC_MIN;
+		  htdcmax  = RAWTDC_MAX;
 	      }
 	      if (tdc_signals[itdcsignal] == "Time") {
-		UInt_t   ntdcbins = TDC_NBINS;
-		Double_t htdcmin  = TDC_MIN;
-		Double_t htdcmax  = TDC_MAX;
+		   ntdcbins = TDC_NBINS;
+		   htdcmin  = TDC_MIN;
+		   htdcmax  = TDC_MAX;
 	      }
 	      htdc[htdcindex]=new TH1F(tdcname, tdctitle, ntdcbins, htdcmin, htdcmax);
 	    }
@@ -232,7 +242,7 @@ void UserScript()
   for(UInt_t iev = 0, N = T->GetEntries(); iev < N; iev++) {
     T->GetEntry(iev);
 
-     for(UInt_t ip = 0; ip < NPLANES; ip++) {
+    for(UInt_t ip = 0; ip < NPLANES; ip++) {
       for(UInt_t iside = 0; iside < NSIDES; iside++) {
 	for(UInt_t isignal = 0; isignal < NSIGNALS; isignal++) {
      
@@ -246,20 +256,29 @@ void UserScript()
 
 		UInt_t ibar = TMath::Nint(adc_paddles[ip][iside][isignal][adc_ihit]) - 1;
 
+
+		Double_t pedval;
+		Double_t pedrawval;
+                Double_t intval;
+             	Double_t intrawval;
+                Double_t ampval;
+                Double_t amprawval;
+                Double_t ptrawval;		  
+
 		if (adc_signals[iadcsignal] == "Ped")
-		  Double_t pedval = ped_values[ip][iside][iadcsignal][adc_ihit];
+		  pedval = ped_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PedRaw")  
-		  Double_t pedrawval = pedraw_values[ip][iside][iadcsignal][adc_ihit];
+		 pedrawval = pedraw_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PulseInt")
-		  Double_t intval = int_values[ip][iside][iadcsignal][adc_ihit];
+	        intval = int_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PulseIntRaw")  
-		  Double_t intrawval = intraw_values[ip][iside][iadcsignal][adc_ihit];
+		  intrawval = intraw_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PulseAmp")
-		  Double_t ampval = amp_values[ip][iside][iadcsignal][adc_ihit];
+		   ampval = amp_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PulseAmpRaw")  
-		  Double_t amprawval = ampraw_values[ip][iside][iadcsignal][adc_ihit];
+		   amprawval = ampraw_values[ip][iside][iadcsignal][adc_ihit];
 		if (adc_signals[iadcsignal] == "PulseTimeRaw")  
-		  Double_t ptrawval = ptraw_values[ip][iside][iadcsignal][adc_ihit];
+		   ptrawval = ptraw_values[ip][iside][iadcsignal][adc_ihit];
 		
 		UInt_t hadcindex = hadcindex_base + ibar;
 

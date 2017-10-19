@@ -1,11 +1,24 @@
-void overlay(TString hist1name, TString hist2name, Bool_t golden=false,TString samestr=""){
+/*******************************
+ * This macro overlays two histograms.
+ * The label1 and label2 are optional
+ * and can be used to label the
+ * different histograms as they are 
+ * drawn.
+ *
+ * hszumila@jlab.org
+ *******************************/
+
+//void overlay(TString hist1name, TString hist2name, Bool_t golden=false,TString samestr=""){
+void overlay(TString hist1name, TString hist2name, TString newName, Bool_t golden=false, TString samestr=""){
   TH1F* H1;
   TH1F* H2;
+
+  if (newName) cout << newName << endl;
   
   H1 = (TH1F*) gDirectory->Get(hist1name);
   H2 = (TH1F*) gDirectory->Get(hist2name);
   if (H1 && H2) {
-  if(golden){
+    if(golden){
     H1->SetLineColor(30);
     H1->SetFillColor(30);
     H1->SetFillStyle(3027);
@@ -19,6 +32,9 @@ void overlay(TString hist1name, TString hist2name, Bool_t golden=false,TString s
     H2->SetStats(0);
     H1->SetMinimum(0);
     H2->SetMinimum(0);
+
+    H1->SetTitle(newName);
+    H2->SetTitle(newName);
   }
 
   if(golden){
