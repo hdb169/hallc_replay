@@ -3,8 +3,8 @@
 # Need to set ptheta_lab to a POSITIVE value
 # 1H   gtargmass_amu = 1.00794
 # 12C  gtargmass_amu = 12.0107
-# 27Al gtargmass_amu = 26.98
-#
+# 27Al gtargmass_amu = 26.98  (Dummy target should be analyzed as 1H, since it is the background underneath)
+# ppartmass = 0.493677 for K+ physics production runs
 
 0-1710
 gpbeam = 6.430
@@ -4414,7 +4414,11 @@ ppcentral = 2.65*0.985
 ppartmass = 0.1395706
 hpartmass = 0.0005109
 
+<<<<<<< HEAD
 4336 
+=======
+4336
+>>>>>>> upstream/master
 gpbeam = 10.600
 gtargmass_amu =1.00794  
 htheta_lab = -19.705
@@ -5039,6 +5043,7 @@ ppcentral = 6.053
 ppartmass = 0.493677
 hpartmass = 0.0005109
 
+<<<<<<< HEAD
 # Start SIDIS Fall 2018
 
 # Optics runs
@@ -6189,3 +6194,14 @@ hpartmass = 0.0005109
 
 
 
+=======
+5335-9999
+pbeam = 10.585
+gtargmass_amu = 1.00794
+htheta_lab = -13.50
+ptheta_lab = 13.50
+hpcentral = 6.269
+ppcentral = 6.269
+ppartmass = 0.0005109
+hpartmass = 0.0005109
+>>>>>>> upstream/master
