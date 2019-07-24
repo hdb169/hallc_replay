@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 #block T.coin.hTRIG*
 #block T.coin.pTRIG*
+=======
+block T.coin.*
+>>>>>>> upstream/master
 block CTime*
 
 block H.cer.*
